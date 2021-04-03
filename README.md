@@ -1,6 +1,6 @@
 # yurumikuji
 
-[kamidama][] slack additonal
+[kamidana][] slack additonal
 
 ## Usage
 
@@ -41,4 +41,4 @@ sample/profile.j2
 |slack_usergroup_member_infos|\<usergroup_id\> \| slack_usergroup_member_infos |get usergroup member user info|usergroups:read|
 |slack_search|\<search_query\> \| slack_search | search message |search:read|
 
-[kamidama]:https://github.com/podhmo/kamidana
+[kamidana]:https://github.com/podhmo/kamidana
