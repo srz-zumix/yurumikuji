@@ -10,13 +10,13 @@ $ cd yurumikuji
 $ pip install -r requirements.txt
 $ cp .env.sample .env
 # SLACK_TOKEN: set your slack (bot|oauth) token
-$ kamidana --additionals=./yurumikuji.py sample/profile.template
+$ kamidana --additionals=./yurumikuji.py sample/profile.j2
 https://secure.gravatar.com/avatar/a7614593f3f6f46b73da348c89beba81.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0023-512.png
 https://secure.gravatar.com/avatar/a7614593f3f6f46b73da348c89beba81.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0023-512.png
 active
 ```
 
-sample/profile.template
+sample/profile.j2
 
 ```j2
 {{ ("srz_zumix" | slack_user_id | slack_user_info).profile.image_512 }}
