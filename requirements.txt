@@ -1,0 +1,3 @@
+kamidana
+slack_sdk
+python-dotenv
