@@ -23,10 +23,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from dotenv import load_dotenv
-load_dotenv()
-
 import os
+import dotenv
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 from kamidana import (
@@ -35,6 +33,12 @@ from kamidana import (
     as_globals_generator,
     as_test,
 )
+
+def load_dotenv():
+    f = dotenv.find_dotenv(usecwd=True)
+    return dotenv.load_dotenv(f)
+
+load_dotenv()
 
 client = WebClient(token=os.environ['SLACK_TOKEN'])
 
