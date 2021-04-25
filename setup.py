@@ -22,7 +22,7 @@ setup(
     , author = author_
     , author_email = "zumix.cpp@gmail.com"
     , url = "https://github.com/srz-zumix/yurumikuji/"
-    , description = "Unity yaml file normalize."
+    , description = "kamidana(jinja2 cli) slack additonal."
     , license = "MIT"
     , platforms = ["any"]
     , keywords = "Slack, Jinja2"
