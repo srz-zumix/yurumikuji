@@ -10,7 +10,7 @@
 ```sh
 $ pip install yurumikuji
 $ echo "SLACK_TOKEN=<your token>" > .env
-$ amidana --additionals=yurumikuji.yurumikuji sample/profile.j2
+$ kamidana --additionals=yurumikuji.yurumikuji sample/profile.j2
 https://secure.gravatar.com/avatar/a7614593f3f6f46b73da348c89beba81.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0023-512.png
 https://secure.gravatar.com/avatar/a7614593f3f6f46b73da348c89beba81.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0023-512.png
 active
