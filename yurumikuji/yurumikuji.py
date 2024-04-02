@@ -43,6 +43,12 @@ load_dotenv()
 client = WebClient(token=os.environ['SLACK_TOKEN'])
 
 
+def on_error(e):
+    if os.environ['SLACK_API_ERROR_RAISE'].lower() == 'true':
+        raise e
+    return e
+
+
 @as_filter
 def slack_user_id(v):
     try:
@@ -62,7 +68,7 @@ def slack_user_id(v):
             if not cursor:
                 break
     except SlackApiError as e:
-        return e
+        return on_error(e)
     return None
 
 
@@ -72,7 +78,7 @@ def slack_user_presence(v):
         result = client.users_getPresence(user=v)
         return result['presence']
     except SlackApiError as e:
-        return e
+        return on_error(e)
 
 
 @as_filter
@@ -81,7 +87,7 @@ def slack_user_info(v):
         result = client.users_info(user=v)
         return result['user']
     except SlackApiError as e:
-        return e
+        return on_error(e)
 
 
 @as_filter
@@ -90,8 +96,8 @@ def slack_user_info_by_email(v):
         result = client.users_lookupByEmail(email=v)
         return result['user']
     except SlackApiError as e:
-        return e
-
+        return on_error(e)
+v
 
 @as_filter
 def slack_user_profile(v):
@@ -99,7 +105,7 @@ def slack_user_profile(v):
         result = client.users_profile_get(user=v)
         return result['profile']
     except SlackApiError as e:
-        return e
+        return on_error(e)
 
 
 @as_filter
@@ -111,7 +117,7 @@ def slack_usergroup_id(v):
             if group['name'] == v:
                 return group['id']
     except SlackApiError as e:
-        return e
+        return on_error(e)
 
 
 @as_filter
@@ -120,7 +126,7 @@ def slack_usergroup_member_ids(v):
         result = client.usergroups_users_list(usergroup=v)
         return result['users']
     except SlackApiError as e:
-        return e
+        return on_error(e)
 
 
 @as_filter
@@ -133,7 +139,7 @@ def slack_usergroup_member_infos(v):
             infos.append(info['user'])
         return infos
     except SlackApiError as e:
-        return e
+        return on_error(e)
 
 
 @as_filter
@@ -142,20 +148,25 @@ def slack_search(v):
         result = client.search_messages(query=v)
         return result['messages']
     except SlackApiError as e:
-        return e
+        return on_error(e)
 
 
 @as_global
 def slack_users_name():
     try:
         names = []
-        result = client.users_list()
-        users = result["members"]
-        for user in users:
-            names.append(user['name'])
+        cursor = None
+        while True:
+            result = client.users_list(cursor=cursor)
+            users = result["members"]
+            for user in users:
+                names.append(user['name'])
+            cursor = result.get('response_metadata', {}).get('next_cursor')
+            if not cursor:
+                break
         return names
     except SlackApiError as e:
-        return e
+        return on_error(e)
 
 
 @as_global
@@ -164,4 +175,4 @@ def slack_user_groups():
         result = client.usergroups_list()
         return result['usergroups']
     except SlackApiError as e:
-        return e
+        return on_error(e)
