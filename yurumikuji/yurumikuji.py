@@ -46,18 +46,24 @@ client = WebClient(token=os.environ['SLACK_TOKEN'])
 @as_filter
 def slack_user_id(v):
     try:
-        result = client.users_list()
-        users = result["members"]
-        for user in users:
-            if user['name'] == v:
-                return user['id']
-            profile = user['profile']
-            if profile['real_name'] == v:
-                return user['id']
-            if profile['display_name'] == v:
-                return user['id']
+        cursor = None
+        while True:
+            result = client.users_list(cursor=cursor)
+            users = result["members"]
+            for user in users:
+                if user['name'] == v:
+                    return user['id']
+                profile = user['profile']
+                if profile['real_name'] == v:
+                    return user['id']
+                if profile['display_name'] == v:
+                    return user['id']
+            cursor = result.get('response_metadata', {}).get('next_cursor')
+            if not cursor:
+                break
     except SlackApiError as e:
         return e
+    return None
 
 
 @as_filter
