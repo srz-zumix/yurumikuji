@@ -97,7 +97,7 @@ def slack_user_info_by_email(v):
         return result['user']
     except SlackApiError as e:
         return on_error(e)
-v
+
 
 @as_filter
 def slack_user_profile(v):
