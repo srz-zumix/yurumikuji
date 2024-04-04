@@ -38,7 +38,7 @@ setup(
         , "Programming Language :: Python :: 3.8"
         , "Programming Language :: Python :: 3.9"
     ]
-    , install_requires=['jinja2<3.0', 'markupsafe==2.0.1', 'kamidana', 'slack_sdk', 'python-dotenv']
+    , install_requires=['jinja2>=3.1', 'markupsafe', 'kamidana>=0.10', 'slack_sdk', 'python-dotenv']
     , tests_require=test_deps
     , test_suite="tests.test_suite"
     , extras_require={
