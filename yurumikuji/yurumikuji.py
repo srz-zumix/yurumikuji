@@ -44,7 +44,7 @@ client = WebClient(token=os.environ['SLACK_TOKEN'])
 
 
 def on_error(e):
-    if os.environ['SLACK_API_ERROR_RAISE'].lower() == 'true':
+    if os.getenv('SLACK_API_ERROR_RAISE', 'false').lower() == 'true':
         raise e
     return e
 
