@@ -151,6 +151,23 @@ def slack_search(v):
         return on_error(e)
 
 
+@as_filter
+def mention(v):
+    if v in slack_user_groups():
+        return mention_group(v)
+    return mention_member(v)
+
+
+@as_filter
+def mention_member(v):
+    return '<@{}>'.format(v) if v else ''
+
+
+@as_filter
+def mention_group(v):
+    return '<!subteam^{}>'.format(v) if v else ''
+
+
 @as_global
 def slack_users_name():
     try:
