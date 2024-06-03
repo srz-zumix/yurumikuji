@@ -21,7 +21,7 @@ jobs:
 
       - name: kamidana
         id: kamidana
-        uses: ./
+        uses: srz-zumix/kamidana-action@v2
         with:
           template: sample/profile.j2
           output_file: test.txt
