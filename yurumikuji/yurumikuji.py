@@ -89,7 +89,7 @@ def search_slack_user_id(v):
 
 @as_filter
 def slack_user_id(v):
-  search_slack_user_id([str(v)])
+  return search_slack_user_id([str(v)])
 
 
 @as_filter
