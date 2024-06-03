@@ -27,6 +27,7 @@ import os
 import dotenv
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
+from slack_sdk.http_retry import all_builtin_retry_handlers
 from kamidana import (
     as_filter,
     as_global,
@@ -40,7 +41,8 @@ def load_dotenv():
 
 load_dotenv()
 
-client = WebClient(token=os.environ['SLACK_TOKEN'])
+retry_handlers = all_builtin_retry_handlers()
+client = WebClient(token=os.environ['SLACK_TOKEN'], retry_handlers=retry_handlers)
 
 
 def on_error(e):
