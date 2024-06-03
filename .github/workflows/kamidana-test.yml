@@ -1,0 +1,33 @@
+name: Kamidana Test
+on:
+  pull_request:
+
+env:
+  SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+
+jobs:
+  kamidana-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+      - name: setup
+        run: python setup.py install
+
+      - name: kamidana
+        id: kamidana
+        uses: ./
+        with:
+          template: sample/profile.j2
+          output_file: test.txt
+          tee: true
+          additonals: |
+            yurumikuji.yurumikuji
+      - run: |
+          cat << 'EOS' | tee output.txt
+          ${{ steps.kamidana.outputs.text }}
+          EOS
+          diff output.txt test.txt
