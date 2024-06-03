@@ -30,7 +30,8 @@ sample/profile.j2
 
 |name|usage|detail|slack required scope|
 |:--|:--|:--|:--|
-|slack_user_id|\<user_name\> \| slack_user_id |user name\|real_name\|display_name to user_id|users:read|
+|slack_user_id|\<user_name\> \| slack_user_id |user name\|real_name\|display_name\|email to user_id|users:read|
+|search_slack_user_id|\[\<user_names\>\] \| slack_user_id | Find user_id from multiple search candidates (user name\|real_name\|display_name\|email)|users:read|
 |slack_user_presence|\<user_id\> \| slack_user_presence |get user presence|users:read|
 |slack_user_info|\<user_id\> \| slack_user_info |get user info|users:read|
 |slack_user_profile|\<user_id\> \| slack_user_profile |get user profile|users.profile:read|
