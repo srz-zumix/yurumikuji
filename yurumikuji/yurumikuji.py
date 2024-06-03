@@ -50,19 +50,29 @@ def on_error(e):
 
 
 @as_filter
-def slack_user_id(v):
+def search_slack_user_id(v):
+    if not isinstance(v, list):
+        v = [str(v)]
     try:
         cursor = None
         while True:
             result = client.users_list(cursor=cursor)
             users = result["members"]
             for user in users:
-                if user['name'] == v:
+                if user['name'] in v:
+                    return user['id']
+                if user['real_name'] in v:
                     return user['id']
                 profile = user['profile']
-                if profile['real_name'] == v:
+                if profile['real_name'] in v:
                     return user['id']
-                if profile['display_name'] == v:
+                if profile['display_name'] in v:
+                    return user['id']
+                if profile['email'] in v:
+                    return user['id']
+                if profile['real_name_normalized'] in v:
+                    return user['id']
+                if profile['display_name_normalized'] in v:
                     return user['id']
             cursor = result.get('response_metadata', {}).get('next_cursor')
             if not cursor:
@@ -70,6 +80,11 @@ def slack_user_id(v):
     except SlackApiError as e:
         return on_error(e)
     return None
+
+
+@as_filter
+def slack_user_id(v):
+    search_slack_user_id([str(v)])
 
 
 @as_filter
