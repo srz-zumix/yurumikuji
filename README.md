@@ -41,5 +41,15 @@ sample/profile.j2
 |slack_usergroup_member_infos|\<usergroup_id\> \| slack_usergroup_member_infos |get usergroup member user info|usergroups:read|
 |slack_usergroup_member_infos|\<usergroup_id\> \| slack_usergroup_member_infos |get usergroup member user info|usergroups:read|
 |slack_search|\<search_query\> \| slack_search | search message |search:read|
+|mention|\<user_or_usergroup_id\> \| mention | get user or group mention text ||
+|mention_menber|\<user_id\> \| mention | get mention text ||
+|mention_group|\<usergroup_id\> \| mention | get group mention text ||
+
+### Globals
+
+|name|usage|detail|slack required scope|
+|:--|:--|:--|:--|
+|slack_users_name| slack_users_name | list users name |users:read|
+|slack_user_groups| slack_user_groups | list user groups |usergroups:read|
 
 [kamidana]:https://github.com/podhmo/kamidana
