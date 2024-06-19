@@ -44,7 +44,7 @@ load_dotenv()
 retry_handlers = all_builtin_retry_handlers()
 client = WebClient(token=os.environ['SLACK_TOKEN'], retry_handlers=retry_handlers)
 
-slack_users = []
+slack_users_list = []
 
 def on_error(e):
   if os.getenv('SLACK_API_ERROR_RAISE', 'false').lower() == 'true':
@@ -181,19 +181,19 @@ def mention_group(v):
 
 @as_global
 def slack_users():
-  if len(slack_users) != 0:
-    return slack_users
+  if len(slack_users_list) != 0:
+    return slack_users_list
   try:
     cursor = None
     while True:
       result = client.users_list(cursor=cursor)
-      slack_users.extend(result["members"])
+      slack_users_list.extend(result["members"])
       for user in users:
         names.append(user['name'])
       cursor = result.get('response_metadata', {}).get('next_cursor')
       if not cursor:
         break
-    return slack_users
+    return slack_users_list
   except SlackApiError as e:
       return on_error(e)
 
