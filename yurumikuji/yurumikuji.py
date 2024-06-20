@@ -44,6 +44,7 @@ load_dotenv()
 retry_handlers = all_builtin_retry_handlers()
 client = WebClient(token=os.environ['SLACK_TOKEN'], retry_handlers=retry_handlers)
 
+slack_users_list = []
 
 def on_error(e):
   if os.getenv('SLACK_API_ERROR_RAISE', 'false').lower() == 'true':
@@ -57,33 +58,23 @@ def search_slack_user_id(v):
     return (key in arr) and (arr[key] in v)
   if not isinstance(v, list):
     v = [str(v)]
-  try:
-    cursor = None
-    while True:
-      result = client.users_list(cursor=cursor)
-      users = result["members"]
-      for user in users:
-        if check(user, 'name', v):
-          return user['id']
-        if check(user, 'real_name', v):
-          return user['id']
-        if 'profile' in user:
-          profile = user['profile']
-          if check(profile, 'real_name', v):
-            return user['id']
-          if check(profile, 'display_name', v):
-            return user['id']
-          if check(profile, 'email', v):
-            return user['id']
-          if check(profile, 'real_name_normalized', v):
-            return user['id']
-          if check(profile, 'display_name_normalized', v):
-            return user['id']
-      cursor = result.get('response_metadata', {}).get('next_cursor')
-      if not cursor:
-        break
-  except SlackApiError as e:
-    return on_error(e)
+  for user in slack_users():
+    if check(user, 'name', v):
+      return user['id']
+    if check(user, 'real_name', v):
+      return user['id']
+    if 'profile' in user:
+      profile = user['profile']
+      if check(profile, 'real_name', v):
+        return user['id']
+      if check(profile, 'display_name', v):
+        return user['id']
+      if check(profile, 'email', v):
+        return user['id']
+      if check(profile, 'real_name_normalized', v):
+        return user['id']
+      if check(profile, 'display_name_normalized', v):
+        return user['id']
   return None
 
 
@@ -189,21 +180,28 @@ def mention_group(v):
 
 
 @as_global
-def slack_users_name():
+def slack_users():
+  if len(slack_users_list) != 0:
+    return slack_users_list
   try:
-    names = []
     cursor = None
     while True:
       result = client.users_list(cursor=cursor)
-      users = result["members"]
-      for user in users:
-        names.append(user['name'])
+      slack_users_list.extend(result["members"])
       cursor = result.get('response_metadata', {}).get('next_cursor')
       if not cursor:
         break
-    return names
+    return slack_users_list
   except SlackApiError as e:
       return on_error(e)
+
+
+@as_global
+def slack_users_name():
+  names = []
+  for user in slack_users():
+    names.append(user['name'])
+  return names
 
 
 @as_global
