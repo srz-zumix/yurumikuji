@@ -188,7 +188,7 @@ def slack_users():
     while True:
       result = client.users_list(cursor=cursor)
       slack_users_list.extend(result["members"])
-      for user in users:
+      for user in slack_users_list:
         names.append(user['name'])
       cursor = result.get('response_metadata', {}).get('next_cursor')
       if not cursor:
