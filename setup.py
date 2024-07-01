@@ -14,7 +14,7 @@ for line in f:
         author_ = [x for x in re.split(r"[ =']", line) if x][1]
 f.close()
 
-test_deps = ['importlib-metadata>=0.12,<8', 'tox', 'tox-pyenv', 'pytest']
+test_deps = ['importlib-metadata>=8.0.0,<9', 'tox', 'tox-pyenv', 'pytest']
 
 setup(
     name = "yurumikuji"
