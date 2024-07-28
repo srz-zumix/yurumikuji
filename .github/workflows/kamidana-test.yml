@@ -4,6 +4,7 @@ on:
 
 env:
   SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+  SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
   SLACK_API_ERROR_RAISE: true
 
 jobs:

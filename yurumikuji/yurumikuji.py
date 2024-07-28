@@ -211,3 +211,12 @@ def slack_user_groups():
     return result['usergroups']
   except SlackApiError as e:
     return on_error(e)
+
+
+@as_filter
+def slack_channel_members(v):
+  try:
+    result = client.conversations_members(channel=v)
+    return result['members']
+  except SlackApiError as e:
+    return on_error(e)
