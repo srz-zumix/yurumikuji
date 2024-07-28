@@ -44,6 +44,7 @@ sample/profile.j2
 |mention|\<user_or_usergroup_id\> \| mention | get user or group mention text ||
 |mention_menber|\<user_id\> \| mention | get mention text ||
 |mention_group|\<usergroup_id\> \| mention | get group mention text ||
+|slack_channel_members|\<channel_id\> \| slack_channel_members | get channel members |channels:read|
 
 ### Globals
 
