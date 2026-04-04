@@ -25,5 +25,8 @@ jobs:
     - name: test
       env:
         SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
-      run: python setup.py test
+      # run: python setup.py test
+      run: |
+        pip install -e".[test]"
+        tox .    - name: test
 
