@@ -14,7 +14,7 @@ for line in f:
         author_ = [x for x in re.split(r"[ =']", line) if x][1]
 f.close()
 
-test_deps = ['importlib-metadata>=0.12,<9', 'tox', 'tox-pyenv', 'pytest']
+test_deps = ['importlib-metadata>=0.12,<9', 'tox', 'pytest']
 
 setup(
     name = "yurumikuji"
@@ -34,9 +34,6 @@ setup(
         , "Topic :: Utilities"
         , "License :: OSI Approved :: MIT License"
         , "Programming Language :: Python"
-        , "Programming Language :: Python :: 3.7"
-        , "Programming Language :: Python :: 3.8"
-        , "Programming Language :: Python :: 3.9"
     ]
     , install_requires=['jinja2>=3.1', 'markupsafe', 'kamidana>=0.10', 'slack_sdk', 'python-dotenv']
     , tests_require=test_deps

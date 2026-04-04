@@ -35,9 +35,11 @@ from kamidana import (
   as_test,
 )
 
+
 def load_dotenv():
   f = dotenv.find_dotenv(usecwd=True)
   return dotenv.load_dotenv(f)
+
 
 load_dotenv()
 
@@ -45,6 +47,7 @@ retry_handlers = all_builtin_retry_handlers()
 client = WebClient(token=os.environ['SLACK_TOKEN'], retry_handlers=retry_handlers)
 
 slack_users_list = []
+
 
 def on_error(e):
   if os.getenv('SLACK_API_ERROR_RAISE', 'false').lower() == 'true':
