@@ -1,25 +1,11 @@
+# Temporary configuration written by gh-secret-kit for gh-secret-kit-dependabot-copy-1789749258727395000.
+# It is removed together with the temporary branch once the copy finishes.
 version: 2
 updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
-    cooldown:
-      default-days: 7
-    ignore:
-      - dependency-name: "actions/*"
-        update-types:
-          - "version-update:semver-minor"
-          - "version-update:semver-patch"
-    groups:
-      actions-minor:
-        update-types:
-          - minor
-          - patch
-
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: weekly
-    cooldown:
-      default-days: 7
+      interval: daily
+    open-pull-requests-limit: 4
+    allow:
+      - dependency-name: actions/first-interaction
