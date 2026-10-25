@@ -1,5 +1,5 @@
 markupsafe
 jinja2>=3.1
-kamidana>=0.10
+kamidana>=0.11.0
 slack_sdk
 python-dotenv
